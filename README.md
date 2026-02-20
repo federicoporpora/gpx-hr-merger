@@ -22,10 +22,18 @@ Many athletes record activities using multiple devices—for example, capturing 
 * **Platform Compatibility:** Generates standard TCX (Training Center XML) files compatible with Strava, Garmin Connect, TrainingPeaks, and others.
 * **Zero Dependencies:** Written in pure Python using only the standard library.
 
+## 📱 Telegram Bot
+
+If you prefer a quick, mobile-friendly solution without using the command line, you can use the Telegram bot: **[@gpx_hr_merger_bot](https://t.me/gpx_hr_merger_bot)**.
+
+> **⚠️ DISCLAIMER:** > Unlike the local script, the Telegram bot does not require you to rename the files to `GPS.gpx` and `HR.gpx`. Instead, it automatically assigns them based on file size: it assumes that the **heavier (larger) file is the HR file**, and the **lighter (smaller) file is the GPS track**. 
+
+If you want to use the bot in a different way, need a custom implementation, or have any issues, feel free to contact me on GitHub or via email at **porporafederico@gmail.com**.
+
 ## Requirements
 
 * Python 3.6 or higher.
-* No external packages (`pip install`) are required.
+* No external packages (`pip install`) are required for the local script.
 
 ## Installation
 
