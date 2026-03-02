@@ -5,7 +5,7 @@
 
 A command-line utility designed to repair, merge, and calibrate activity data. This tool merges Heart Rate data from an external source into a GPS track and recalibrates the total distance to match a specific target (e.g., treadmill display correction).
 
-## Overview
+## 📝 Overview
 
 Many athletes record activities using multiple devices—for example, capturing GPS on a smartphone (via Strava/Zwift) while recording Heart Rate on a dedicated watch. This often results in two separate files and mismatched distance data due to GPS drift or treadmill calibration differences.
 
@@ -15,7 +15,7 @@ Many athletes record activities using multiple devices—for example, capturing 
 3.  Recalibrating the entire session's distance to match a user-provided target.
 4.  Exporting a compliant `.tcx` file ready for upload to fitness platforms.
 
-## Features
+## ✨ Features
 
 * **Timestamp Synchronization:** Matches HR data points to GPS track points within a configurable time window (default: 5 seconds).
 * **Drift Correction:** Calculates the raw GPS distance using the Haversine formula and applies a correction ratio to match the target distance exactly.
@@ -28,21 +28,21 @@ If you prefer a quick, mobile-friendly solution without using the command line, 
 
 > **⚠️ DISCLAIMER:** > Unlike the local script, the Telegram bot does not require you to rename the files to `GPS.gpx` and `HR.gpx`. Instead, it automatically assigns them based on file size: it assumes that the **heavier (larger) file is the HR file**, and the **lighter (smaller) file is the GPS track**. 
 
-If you want to use the bot in a different way, need a custom implementation, or have any issues, feel free to contact me on GitHub or via email at **porporafederico@gmail.com**.
+If you have any issues or need support, feel free to contact me on GitHub or via email at **porporafederico@gmail.com**.
 
-## Requirements
+## 💻 Requirements
 
-* Python 3.6 or higher.
-* No external packages (`pip install`) are required for the local script.
+*   🐍 **Python 3.6** or higher.
+*   📦 **Standard Library** (no external `pip install` required for the local script).
 
-## Installation
+## 📥 Installation
 
 Clone the repository or download the script directly:
 
     git clone https://github.com/YOUR_USERNAME/gpx-hr-merger.git
     cd gpx-hr-merger
 
-## Usage
+## 🚀 Usage
 
 ### 1. File Preparation
 Ensure you have your two source files in the project directory:
@@ -63,7 +63,7 @@ Example (correcting a run to 10.5 km):
 ### 3. Output
 The script will generate a file named `output_fixed.tcx` in the same directory. This file contains the merged data and corrected distance, ready for upload.
 
-## Project Structure
+## 📂 Project Structure
 
     .
     ├── gpx_hr_merger.py    # Main executable script
@@ -71,10 +71,10 @@ The script will generate a file named `output_fixed.tcx` in the same directory. 
     ├── HR.gpx              # Input file (Heart Rate)
     └── README.md           # Documentation
 
-## Technical Details
+## ⚙️ Technical Details
 
 The distance correction is linear. The script calculates the ratio between the `Target Distance` and the `Calculated GPS Distance`. This ratio is applied as a multiplier to the distance delta of every individual trackpoint, preserving the pace variations relative to the original GPS data while fixing the total length.
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
