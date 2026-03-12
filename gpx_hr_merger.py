@@ -126,6 +126,7 @@ def create_tcx(points: List[Dict], start_time: datetime, total_duration_sec: flo
             ele = p['ele']
             dist = p['dist_calculated']
             hr = p['hr']
+            cad = p.get('cad')
             
             f.write(f"          <Trackpoint>\n")
             f.write(f"            <Time>{t_str}</Time>\n")
@@ -139,6 +140,8 @@ def create_tcx(points: List[Dict], start_time: datetime, total_duration_sec: flo
                 f.write(f"            <HeartRateBpm>\n")
                 f.write(f"              <Value>{hr}</Value>\n")
                 f.write(f"            </HeartRateBpm>\n")
+            if cad is not None:
+                f.write(f"            <Cadence>{cad}</Cadence>\n")
             f.write(f"          </Trackpoint>\n")
         f.write(footer)
 
@@ -179,6 +182,7 @@ def main():
     prev_lon = None
     raw_accumulated_dist = 0.0
     found_points = 0
+    last_cad = None
 
     for trkpt in root.findall(".//gpx:trkpt", NS_GPX):
         lat = float(trkpt.get("lat"))
@@ -194,6 +198,11 @@ def main():
         found_points += 1
         t = parse_time(time_el.text)
         
+        cad_el = trkpt.find(".//gpxtpx:cad", NS_GPX)
+        if cad_el is not None:
+            # TCX wants cadence in RPM, while GPX saves in SPM, so I divide it by two
+            last_cad = int(cad_el.text) // 2
+        
         step_dist = 0.0
         if prev_lat is not None:
             step_dist = haversine(prev_lon, prev_lat, lon, lat)
@@ -204,7 +213,8 @@ def main():
         track_points.append({
             "lat": lat, "lon": lon, "ele": ele, "time": t,
             "raw_dist": raw_accumulated_dist,
-            "hr": get_closest_hr(t, hr_data)
+            "hr": get_closest_hr(t, hr_data),
+            "cad": last_cad
         })
         prev_lat, prev_lon = lat, lon
 
